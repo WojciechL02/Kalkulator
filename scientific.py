@@ -181,7 +181,7 @@ class Calculator(Frame):
 
         # przycisk 2^x
         self.bttn_power2 = Button(self, text="2^x", font=("arial", 20), width=5, height=2, bg="black", fg="white",
-                                  borderwidth=4, command=lambda: self.click("2^"))
+                                  borderwidth=4, command=self.power2_x)
         self.bttn_power2.grid(row=4, column=6, padx=1, pady=1)
 
         # przycisk rad
@@ -308,7 +308,7 @@ class Calculator(Frame):
     def log(self):
         a = self.entry.get()
         self.entry.delete(0, END)
-        if a != "":
+        if a != "" and a != ".":
             if float(a) > 0:
                 b = m.log(float(a))
                 self.entry.insert(0, b)
@@ -319,7 +319,7 @@ class Calculator(Frame):
     def log2(self):
         a = self.entry.get()
         self.entry.delete(0, END)
-        if a != "":
+        if a != "" and a != ".":
             if float(a) > 0:
                 b = m.log2(float(a))
                 self.entry.insert(0, b)
@@ -330,7 +330,7 @@ class Calculator(Frame):
     def log10(self):
         a = self.entry.get()
         self.entry.delete(0, END)
-        if a != "":
+        if a != "" and a != ".":
             if float(a) > 0:
                 b = m.log10(float(a))
                 self.entry.insert(0, b)
@@ -339,62 +339,73 @@ class Calculator(Frame):
                 self.entry.insert(0, b)
 
     def exp(self):
-        a = float(self.entry.get())
-        self.entry.delete(0, END)
-        self.entry.insert(0, m.exp(a))
+        a = self.entry.get()
+        if a != "" and a != ".":
+            self.entry.delete(0, END)
+            self.entry.insert(0, m.exp(float(a)))
 
     def rad(self):
         a = self.entry.get()
-        self.entry.delete(0, END)
-        self.entry.insert(0, m.radians(a))
+        if a != "" and a != ".":
+            self.entry.delete(0, END)
+            self.entry.insert(0, m.radians(float(a)))
 
     def x_power_2(self):
         a = self.entry.get()
         self.entry.delete(0, END)
-        b = a**2
-        self.entry.insert(0, b)
+        if a != "" and a != ".":
+            b = float(a)**2
+            self.entry.insert(0, b)
 
     def power10(self):
         a = self.entry.get()
         self.entry.delete(0, END)
-        b = 10**a
-        self.entry.insert(0, b)
+        if a != "" and a != ".":
+            b = 10**float(a)
+            self.entry.insert(0, b)
+
+    def power2_x(self):
+        a = self.entry.get()
+        self.entry.delete(0, END)
+        if a != "" and a != ".":
+            b = 2**float(a)
+            self.entry.insert(0, b)
 
     def sinus(self):
         a = self.entry.get()
-        if a != "":
+        if a != "" and a != ".":
             self.entry.delete(0, END)
-            self.entry.insert(0, m.sin(float(a)))
+            self.entry.insert(0, round(m.sin(float(a)), 15))
 
     def cosinus(self):
-        a = float(self.entry.get())
-        if a != "":
+        a = self.entry.get()
+        if a != "" and a != ".":
             self.entry.delete(0, END)
-            self.entry.insert(0, m.cos(float(a)))
+            self.entry.insert(0, round(m.cos(float(a)), 15))
 
     def tangens(self):
-        a = float(self.entry.get())
-        if a != "":
+        a = self.entry.get()
+        if a != "" and a != ".":
             self.entry.delete(0, END)
-            self.entry.insert(0, m.tan(float(a)))
+            self.entry.insert(0, round(m.tan(float(a)), 15))
 
     def sinush(self):
-        a = float(self.entry.get())
-        if a != "":
+        a = self.entry.get()
+        if a != "" and a != ".":
             self.entry.delete(0, END)
-            self.entry.insert(0, m.sinh(float(a)))
+            self.entry.insert(0, round(m.sinh(float(a)), 14))
 
     def cosinush(self):
-        a = float(self.entry.get())
-        if a != "":
+        a = self.entry.get()
+        if a != "" and a != ".":
             self.entry.delete(0, END)
-            self.entry.insert(0, m.cosh(float(a)))
+            self.entry.insert(0, round(m.cosh(float(a)), 14))
 
     def tangensh(self):
-        a = float(self.entry.get())
-        if a != "":
+        a = self.entry.get()
+        if a != "" and a != ".":
             self.entry.delete(0, END)
-            self.entry.insert(0, m.tanh(float(a)))
+            self.entry.insert(0, round(m.tanh(float(a)), 14))
 
 
 def wynik(n):
@@ -418,7 +429,6 @@ def wynik(n):
             w += n[i]
         i += 1
     return w
-
 
 
 if __name__ == "__main__":
